@@ -18,48 +18,19 @@ import java.util.Scanner;
 @DatabaseTable(tableName = "movie")
 public class Movie {
 
-	public static void main(String[] args) throws Exception {
-		readConfigFile();
-
-		//Creates a connection to movieDB and creating DAO
-		establishConnection(username,password);
-
-		//creating table
-		createTable();
-
-		//fill table with Init-data
-		fillTableWithInitData();
-
-		//adding row
-		addRow("Wonder Woman", "Patty Jenkins", 2017);
-
-		//getting movie by ID
-		getRowById();
-
-		//getting movies by year (only 2017 movies)
-		getRowsByYear();
-
-		//delete methods
-		//deleteRow(2);
-		//dropTable();
-
-		printAll();
-	}
-
 	//region Fields
-	private static String username;
-	private static String password;
-	private static String databaseUrl;
+	private String username;
+	private String password;
+	private String databaseUrl;
 
-	private static Dao<Movie, Integer> movieDao;
-	private static ConnectionSource connectionSource;
-	private static ArrayList<Movie> movies = new ArrayList<Movie>();
-	private static Scanner scanner = new Scanner(System.in);
+	private Dao<Movie, Integer> movieDao;
+	private ConnectionSource connectionSource;
+	private ArrayList<Movie> movies = new ArrayList<>();
 
-	private static final String ID_FIELD_NAME = "id";
-	private static final String TITLE_FIELD_NAME = "title";
-	private static final String DIRECTOR_FIELD_NAME = "director";
-	private static final String YEAR_FIELD_NAME = "year";
+	private final String ID_FIELD_NAME = "id";
+	private final String TITLE_FIELD_NAME = "title";
+	private final String DIRECTOR_FIELD_NAME = "director";
+	private final String YEAR_FIELD_NAME = "year";
 	//endregion
 
 	//region Database-fields
@@ -78,14 +49,14 @@ public class Movie {
 		//Empty constructor
 	}
 
-	private Movie(int id, String name, String director, int year) {
+	public Movie(int id, String name, String director, int year) {
 		this.id = id;
 		this.name = name;
 		this.director = director;
 		this.year = year;
 	}
 
-	private Movie(String name, String director, int year) {
+	public Movie(String name, String director, int year) {
 		this.name = name;
 		this.director = director;
 		this.year = year;
@@ -93,7 +64,7 @@ public class Movie {
 	//endregion
 
 	//region Methods
-	private static void readConfigFile(){
+	protected void readConfigFile(){
 		Properties props = new Properties();
 		InputStream input = null;
 
@@ -117,27 +88,33 @@ public class Movie {
 		}
 	}
 
-	private static void establishConnection(String username, String password){
+	protected void establishConnection(String username, String password){
 		try{
 			//Creates a connection to movieDB
 			connectionSource = new JdbcConnectionSource(databaseUrl, username, password);
 
+
 			// DAO-init
 			movieDao = DaoManager.createDao(connectionSource, Movie.class);
+
 		} catch (SQLException sqle){
 			sqle.getMessage();
 		}
 	}
 
-	private static void createTable(){
+	protected void createTable(){
 		try{
-			TableUtils.createTableIfNotExists(connectionSource,Movie.class);
+			/*if (movieDao.isTableExists()){
+				dropTable();
+			}*/
+
+			TableUtils.createTableIfNotExists(connectionSource, Movie.class);
 		} catch (SQLException sqle){
 			sqle.getMessage();
 		}
 	}
 
-	private static void dropTable(){
+	protected void dropTable(){
 		try{
 			TableUtils.dropTable(movieDao,true);
 		} catch (SQLException sqle){
@@ -146,7 +123,7 @@ public class Movie {
 
 	}
 
-	private static void fillTableWithInitData(){
+	protected void fillTableWithInitData(){
 		try{
 			movies.add(new Movie(1,"Star Wars: The Last Jedi", "Rian Johnson", 2017));
 			movies.add(new Movie(2,"Spider-Man: Homecoming", "Jon Watts", 2017));
@@ -161,7 +138,7 @@ public class Movie {
 		}
 	}
 
-	private static void addRow(String title, String director, int year){
+	protected void addRow(String title, String director, int year){
 		Movie movie = new Movie(title,director,year);
 		try {
 			movieDao.createIfNotExists(movie);
@@ -171,10 +148,8 @@ public class Movie {
 
 	}
 
-	private static void getRowById(){
+	protected void getRowById(int id){
 
-		System.out.print("Enter movie-id: ");
-		int id = Integer.parseInt(scanner.nextLine());
 		System.out.println("Getting row where id = " + id);
 
 		try {
@@ -186,9 +161,8 @@ public class Movie {
 		}
 	}
 
-	private static void getRowsByYear(){
-		System.out.print("Enter year: ");
-		int year = Integer.parseInt(scanner.nextLine());
+	protected void getRowsByYear(int year){
+
 		System.out.println("Getting rows where years = " + year);
 
 		try {
@@ -203,7 +177,7 @@ public class Movie {
 		}
 	}
 
-	private static void printAll(){
+	protected void printAll(){
 		try{
 			List<Movie> movies = movieDao.queryForAll();
 
@@ -216,10 +190,9 @@ public class Movie {
 		} catch (SQLException sqle){
 			sqle.getMessage();
 		}
-
 	}
 
-	private static void deleteRow(int id){
+	protected void deleteRow(int id){
 		try{
 			movieDao.deleteById(id);
 
@@ -230,27 +203,27 @@ public class Movie {
 	//endregion
 
 	//region Getters/setters/toString
-	public static String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public static void setUsername(String username) {
-		Movie.username = username;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public static String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public static void setPassword(String password) {
-		Movie.password = password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public static void setDatabaseUrl(String databaseUrl) {
-		Movie.databaseUrl = databaseUrl;
+	public void setDatabaseUrl(String databaseUrl) {
+		this.databaseUrl = databaseUrl;
 	}
 
-	public static String getDatabaseUrl() {
+	public String getDatabaseUrl() {
 		return databaseUrl;
 	}
 
