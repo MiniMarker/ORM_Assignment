@@ -107,6 +107,8 @@ public class UserMenu {
 
 					break;
 				case "5":
+					System.out.print("Enter id: ");
+
 					int deleteId = Integer.parseInt(clientInput.nextLine());
 					movie.deleteRow(deleteId);
 					printElementsMenu();

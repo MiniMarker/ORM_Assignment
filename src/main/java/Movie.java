@@ -3,6 +3,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.table.TableUtils;
@@ -104,9 +105,9 @@ public class Movie {
 
 	protected void createTable(){
 		try{
-			/*if (movieDao.isTableExists()){
+			if (movieDao.isTableExists()){
 				dropTable();
-			}*/
+			}
 
 			TableUtils.createTableIfNotExists(connectionSource, Movie.class);
 		} catch (SQLException sqle){
@@ -129,6 +130,28 @@ public class Movie {
 			movies.add(new Movie(2,"Spider-Man: Homecoming", "Jon Watts", 2017));
 			movies.add(new Movie(3,"Kingsman: The Golden Circle", "Matthew Vaughn", 2017));
 			movies.add(new Movie(4,"Blade Runner 2049", "Denis Villeneuve", 2017));
+			movies.add(new Movie(5,"Justice League", "Zack Snyder", 2017));
+			movies.add(new Movie(6,"Suicide Squad","David Ayer",2016));
+			movies.add(new Movie(7,"Interstellar","Christopher Nolan",2014));
+			movies.add(new Movie(8,"Inception","Christopher Nolan",2010));
+			movies.add(new Movie(9,"The Dark Knight","Christopher Nolan",2008));
+			movies.add(new Movie(10,"Fight Club", "David Fincher",1999));
+			movies.add(new Movie(11,"Django Unchained","Quentin Tarantino",2012));
+			movies.add(new Movie(12,"The Prestige","Christopher Nolan",2006));
+			movies.add(new Movie(13,"The Dark Knight Rises","Christopher Nolan",2012));
+			movies.add(new Movie(14,"The Avengers","Joss Whedon",2012));
+			movies.add(new Movie(15,"The Lego Movie","Phil Lord, Christopher Miller",2014));
+			movies.add(new Movie(16,"Big Hero 6","Don Hall, Chris Williams",2014));
+			/*movies.add(new Movie(17,));
+			movies.add(new Movie(18));
+			movies.add(new Movie(19));
+			movies.add(new Movie(20));
+			movies.add(new Movie(21));
+			movies.add(new Movie(22));
+			movies.add(new Movie(23));
+			movies.add(new Movie(24));
+			movies.add(new Movie(25));*/
+
 
 			for (Movie i : movies){
 				movieDao.createIfNotExists(i);
@@ -154,6 +177,7 @@ public class Movie {
 
 		try {
 			Movie movie = movieDao.queryForId(id);
+
 			System.out.println(movie.toString());
 
 		} catch (SQLException sqle){
@@ -163,7 +187,7 @@ public class Movie {
 
 	protected void getRowsByYear(int year){
 
-		System.out.println("Getting rows where years = " + year);
+		System.out.println("Getting rows where year = " + year);
 
 		try {
 			List<Movie> movies = movieDao.queryBuilder().where().eq(YEAR_FIELD_NAME, year).query();
@@ -193,9 +217,14 @@ public class Movie {
 	}
 
 	protected void deleteRow(int id){
+
+		System.out.println("Deleting row:");
+		getRowById(id);
+
 		try{
 			movieDao.deleteById(id);
 
+			System.out.println("Success!");
 		} catch (SQLException sqle){
 			sqle.getMessage();
 		}
@@ -261,7 +290,7 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "id: " + id + ", name: " + name + ", director: " + director + ", year: " + year;
+		return String.format("%-10s%-35s%-35s%-30s", id, name, director, year);
 	}
 	//endregion
 }

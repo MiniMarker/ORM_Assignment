@@ -18,11 +18,32 @@
     <schema id="13" parent="1" name="things"/>
     <schema id="14" parent="1" name="TimetableWesterdals"/>
     <schema id="15" parent="1" name="world"/>
-    <schema id="16" parent="1" name="movies">
+    <schema id="16" parent="1" name="movie">
       <Visible>1</Visible>
     </schema>
-    <schema id="17" parent="1" name="movie">
-      <Visible>1</Visible>
-    </schema>
+    <table id="17" parent="16" name="movie"/>
+    <column id="18" parent="17" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="19" parent="17" name="title">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="20" parent="17" name="director">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="21" parent="17" name="year">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="22" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

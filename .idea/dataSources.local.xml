@@ -9,7 +9,7 @@
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-schemas>*:movie,movies</introspection-schemas>
+      <introspection-schemas>*:movie</introspection-schemas>
     </data-source>
     <data-source name="@localhost [2]" uuid="06414ec0-c727-425e-ade5-1cb01d8389a4">
       <database-info product="MySQL" version="5.7.19" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.44 ( Revision: b3cda4f864902ffdde495b9df93937c3e20009be )">
