@@ -3,7 +3,6 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.table.TableUtils;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
 
 @DatabaseTable(tableName = "movie")
 public class Movie {
@@ -103,27 +101,6 @@ public class Movie {
 		}
 	}
 
-	protected void createTable(){
-		try{
-			if (movieDao.isTableExists()){
-				dropTable();
-			}
-
-			TableUtils.createTableIfNotExists(connectionSource, Movie.class);
-		} catch (SQLException sqle){
-			sqle.getMessage();
-		}
-	}
-
-	protected void dropTable(){
-		try{
-			TableUtils.dropTable(movieDao,true);
-		} catch (SQLException sqle){
-			sqle.getMessage();
-		}
-
-	}
-
 	protected void fillTableWithInitData(){
 		try{
 			movies.add(new Movie(1,"Star Wars: The Last Jedi", "Rian Johnson", 2017));
@@ -180,6 +157,27 @@ public class Movie {
 		}
 	}
 
+	protected void createTable(){
+		try{
+			if (movieDao.isTableExists()){
+				dropTable();
+			}
+
+			TableUtils.createTableIfNotExists(connectionSource, Movie.class);
+		} catch (SQLException sqle){
+			sqle.getMessage();
+		}
+	}
+
+	protected void dropTable(){
+		try{
+			TableUtils.dropTable(movieDao,true);
+		} catch (SQLException sqle){
+			sqle.getMessage();
+		}
+
+	}
+
 	protected void addRow(String title, String director, int year){
 		Movie movie = new Movie(title,director,year);
 		try {
@@ -188,6 +186,20 @@ public class Movie {
 			sqle.getMessage();
 		}
 
+	}
+
+	protected void deleteRow(int id){
+
+		System.out.println("Deleting row:");
+		getRowById(id);
+
+		try{
+			movieDao.deleteById(id);
+
+			System.out.println("Success!");
+		} catch (SQLException sqle){
+			sqle.getMessage();
+		}
 	}
 
 	protected void getRowById(int id){
@@ -230,20 +242,6 @@ public class Movie {
 				System.out.println(i.toString());
 			}
 
-		} catch (SQLException sqle){
-			sqle.getMessage();
-		}
-	}
-
-	protected void deleteRow(int id){
-
-		System.out.println("Deleting row:");
-		getRowById(id);
-
-		try{
-			movieDao.deleteById(id);
-
-			System.out.println("Success!");
 		} catch (SQLException sqle){
 			sqle.getMessage();
 		}
