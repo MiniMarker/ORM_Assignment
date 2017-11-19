@@ -50,7 +50,7 @@ public class Movie {
 		//Empty constructor
 	}
 
-	public Movie(int id, String name, String director, int year) {
+	private Movie(int id, String name, String director, int year) {
 		this.id = id;
 		this.name = name;
 		this.director = director;
@@ -142,16 +142,35 @@ public class Movie {
 			movies.add(new Movie(14,"The Avengers","Joss Whedon",2012));
 			movies.add(new Movie(15,"The Lego Movie","Phil Lord, Christopher Miller",2014));
 			movies.add(new Movie(16,"Big Hero 6","Don Hall, Chris Williams",2014));
-			/*movies.add(new Movie(17,));
-			movies.add(new Movie(18));
-			movies.add(new Movie(19));
-			movies.add(new Movie(20));
-			movies.add(new Movie(21));
-			movies.add(new Movie(22));
-			movies.add(new Movie(23));
-			movies.add(new Movie(24));
-			movies.add(new Movie(25));*/
-
+			movies.add(new Movie(17,"Blade Runner","Ridley Scott",1982));
+			movies.add(new Movie(18,"The Wolf of Wall Street","Martin Scorsese",2013));
+			movies.add(new Movie(19,"Fargo","Joel Coen, Ethan Coen",1996));
+			movies.add(new Movie(20,"Forrest Gump", "Robert Zemeckis", 1994));
+			movies.add(new Movie(21,"Pulp Fiction", "Quentin Tarantino", 1994));
+			movies.add(new Movie(22,"Se7en", "David Fincher", 1995));
+			movies.add(new Movie(23,"The Silence of the Lambs", "Jonathan Demme", 1991));
+			movies.add(new Movie(24,"The Shawshank Redemption", "Frank Darabont", 1994));
+			movies.add(new Movie(25,"The Godfather", "Francis Ford Coppola", 1972));
+			movies.add(new Movie(26,"Schindler's List","Steven Spielberg",1993));
+			movies.add(new Movie(27,"Goodfellas","Martin Scorsese",1990));
+			movies.add(new Movie(28,"Spirited Away","Hayao Miyazaki, Kirk Wise",2001));
+			movies.add(new Movie(29,"American History X","Tony Kaye",1998));
+			movies.add(new Movie(30,"The Lion King","Roger Allers, Rob Minkoff",1994));
+			movies.add(new Movie(31,"Memento","Christopher Nolan",2000));
+			movies.add(new Movie(32,"Alien","Ridley Scott",1979));
+			movies.add(new Movie(33,"Braveheart","Mel Gibson",1995));
+			movies.add(new Movie(34,"Reservoir Dogs","Quentin Tarantino",1992));
+			movies.add(new Movie(35,"A Clockwork Orange","Stanley Kubrick",1971));
+			movies.add(new Movie(36,"Inglourious Basterds","Quentin Tarantino, Eli Roth",2009));
+			movies.add(new Movie(37,"Dunkirk","Christopher Nolan",2017));
+			movies.add(new Movie(38,"Monty Python and the Holy Grail","Terry Gilliam, Terry Jones",1975));
+			movies.add(new Movie(39,"Good Will Hunting","Gus Van Sant",1997));
+			movies.add(new Movie(40,"The Hunt","Thomas Vinterberg",2012));
+			movies.add(new Movie(41,"Scarface","Brian De Palma",1983));
+			movies.add(new Movie(42,"Indiana Jones and the Last Crusade","Steven Spielberg",1989));
+			movies.add(new Movie(43,"Die Hard","John McTiernan",1988));
+			movies.add(new Movie(44,"My Neighbor Totoro","Hayao Miyazaki",1988));
+			movies.add(new Movie(45,"Howl's Moving Castle","Hayao Miyazaki",2004));
 
 			for (Movie i : movies){
 				movieDao.createIfNotExists(i);
@@ -250,42 +269,6 @@ public class Movie {
 
 	public void setDatabaseUrl(String databaseUrl) {
 		this.databaseUrl = databaseUrl;
-	}
-
-	public String getDatabaseUrl() {
-		return databaseUrl;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDirector() {
-		return director;
-	}
-
-	public void setDirector(String director) {
-		this.director = director;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	@Override
